@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>错误</title>
+</head>
+<body>
+<h1>错误页面</h1>
+<!--th:utext 将解析所有的标签  th:text：解析部份标签
+th:remove
+th:remove的值如下:
+　　1.all:删除包含标签和所有的孩子。
+　　2.body:不包含标记删除,但删除其所有的孩子。
+　　3.tag:包含标记的删除,但不删除它的孩子。
+　　4.all-but-first:删除所有包含标签的孩子,除了第一个。
+　　5.none:什么也不做。这个值是有用的动态评估
+-->
+<div>
+    <div th:utext="'&lt;!--'" th:remove="tag"></div>
+    <div th:utext="'Failed Request URL:'+${url}" th:remove="tag"></div>
+    <div th:utext="'Exception message:'+${exception.message}" th:remove="tag"></div>
+
+    <ul th:remove="tag">
+        <li th:each="st : ${exception.stackTrace}" th:remove="tag">
+            <span th:utext="${st}" th:remove="tag"></span>
+        </li>
+    </ul>
+    <div th:utext="'--&gt;'" th:remove="tag"></div>
+</div>
+</body>
+</html>

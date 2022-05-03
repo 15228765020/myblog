@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--利用thymleaf抽取的模板-->
+
+<!--头部-->
+<head th:replace="_fragment::common_header(~{::title})">
+    <meta charset="UTF-8">
+    <title>500</title>
+</head>
+<body>
+<!--导航栏-->
+<nav class="ui inverted attached segment m-padded-tb-mini" th:replace="_fragment::menu(0)">
+</nav>
+
+<br>
+<br>
+<br>
+<br>
+
+<div class="m-container-small m-padded-tb-massive">
+    <div class="ui error message m-padded-tb-massive">
+        <div class="ui container">
+            <h1>500</h1>
+            <p>内部服务器出现问题!!</p>
+        </div>
+    </div>
+</div>
+
+
+<!--底部-->
+<footer th:replace="_fragment::footer" class="ui inverted vertical segment m-padded-tb-massive">
+</footer>
+</body>
+</html>

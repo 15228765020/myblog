@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--抽取页面的公共部分-->
+<head th:fragment="common_header(title)">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}">日记</title>
+    <!-- 引入自定义样式 -->
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <!-- semantic-ui的css样式文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!--typo.css  -->
+    <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
+    <!-- 引入动画的css文件 -->
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+    <!-- 引入代码高亮的css -->
+    <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+    <!-- 自动生成目录 tocbot  -->
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" th:href="@{/lib/editormd/css/editormd.css}">
+</head>
+<body>
+<!-- 后台导航 -->
+<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" th:fragment="menu(n)">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item"> 日记后台管理</h2>
+            <!--日记-->
+            <a th:href="@{/admin/blogs}" href="#" class="m-item item m-mobile-hide" th:classappend="${n==1}?'active'"><i class="home icon"></i>日记</a>
+            <!--分类-->
+            <a th:href="@{/admin/types}" class="m-item item m-mobile-hide" th:classappend="${n==2}?'active'"><i class="idea icon"></i>分类</a>
+            <!--标签-->
+            <a th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3}?'active'"><i class="tags icon"></i>标签</a>
+
+            <!--访客记录-->
+            <a th:href="@{/admin/visitorinfo}" class="m-item item m-mobile-hide" th:classappend="${n==4}?'active'"><i class="tags icon"></i>访客记录</a>
+
+            <div class="right m-item m-mobile-hide menu">
+                <div class="ui eg1 dropdown item">
+                    <div class="text">
+                        <img class="ui avatar image" src="https://picsum.photos/id/1011/450/450">
+                        cheniubility
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item">
+                            <!-- 图标1 -->
+                            切换
+                        </a>
+                        <a href="#" th:href="@{/admin/logout}" class="item">
+                            <!-- 图标2 -->
+                            注销
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+<!--页面底部-->
+<footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-massive">
+    <div class="ui center aligned container">
+        <div class="ui inverted divided grid stackable">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img th:src="@{/images/wechat_QRcode.jpg}" class="ui rounded image" alt="" style="width: 110px;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="three wide column">
+                <h4 class="inverted header">最新日记</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">用户故事(UserStory)</a>
+                    <a href="#" class="item">用户故事(UserStory)</a>
+                    <a href="#" class="item">用户故事(UserStory)</a>
+                </div>
+            </div>
+
+            <div class="three wide column">
+                <h4 class="inverted header">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">Email:p1690533359@163.com</a>
+                    <a href="#" class="item">QQ:1690533359</a>
+                    <!-- <a href="#" class="item">用户故事(UserStory)</a> -->
+                </div>
+            </div>
+
+            <div class="seven wide column">
+                <h4 class="inverted header m-opacity-mini">Diary简介</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的手心日记，我会在上面写一些自己的所见所闻所想，会将自己的学习心得和资料分享给大家!!</p>
+            </div>
+
+        </div>
+        <!-- 底部的分割线 -->
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-mini">Copyright © 2021 Design by Chenlong. All rights reserved.
+            | <a href="https://beian.miit.gov.cn/" target="_blank">蜀ICP备2021020368号-1</a></p>
+    </div>
+</footer>
+
+<!--js的fragment模块-->
+<th:block th:fragment="script">
+    <!-- cdn引入jquery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <!--cdn引入semantic-ui的 此js依赖于jquery -->
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <!-- 代码高亮的js -->
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <!-- 自动生成目录 tocbot  -->
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <!-- 自动生成二维码 -->
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <!-- 平滑滚动插件 -->
+    <script src="../static/lib/scrollTo/jquery.scrollTo.min.js" th:src="@{/lib/scrollTo/jquery.scrollTo.min.js}"></script>
+    <!-- 滚动侦测 -->
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+
+</th:block>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragment :: common_header(~{::title})">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <!-- 引入自定义样式 -->
+    <link rel="stylesheet"  th:href="@{/css/me.css}">
+    <!-- semantic-ui的css样式文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+
+</head>
+<!---image--->
+<body th:style="'background: url(/images/bg01.png) no-repeat center center; background-size: 100% 100%;background-attachment: fixed'">
+    <!-- 导航 -->
+    <nav class="ui inverted attached segment m-padded-tb-mini" th:replace="_fragment :: menu(1)">
+        <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+    <!-- 中间内容 th:background="@{/images/bg01.png}"-->
+    <div class="m-container m-padded-tb-large" >
+        <div class="ui container">
+            <div class="ui grid">
+                <!-- 左边博客列表头 -->
+                <div class="eleven wide column">
+                    <!--
+                    top attached 
+                    -->
+                    <div class="ui top attached segment">
+                        <!-- middle aligned -->
+                        <div class="ui middle aligned two column grid">
+                                <div class="column">
+                                    <h3 class="ui teal header">分享日记</h3>
+                                </div>
+                        
+                                <div class="right aligned column ">
+                                    共<h3 class="ui orange header m-inline-block m-text-thin" th:text="${page.totalElements}!=null ? ${page.totalElements}">14</h3>篇
+                                </div>
+                        </div>
+                    </div>
+                    <!--博客列表内容 -->
+                    <!-- 1 -->
+                    <div class="ui attached segment">
+                        <div class="ui padded vertical segment m-padded-tb-large" th:each="blog : ${page.content}">
+                            <div class="ui grid stackable mobile reversed">
+                                <div class="eleven wide column" >
+                                     <!-- 标题 -->
+                                    <a href="#" th:href="@{/blog/{id}(id=${blog.id})}">
+                                     <h3 class="ui header" th:text="${blog.title}">标题内容</h3>
+                                    </a>
+                                        <!--这里应该写成博客的描述-->
+                                     <p class="m-text" th:text="|${blog.description}......|">
+
+                                     </p>
+         <!--                            <p class="m-text" th:text="${blog.content}">段落内容!!li{display:inline;width:120px;line-height:30px;float:left;}
+                                        加入 float:left;应该就可以了
+                                        或者你在别的地方设置了li的width>段落内容!!li{display:inline;width:120px;line-height:30px;float:left;}
+                                        加入 float:left;应该就可以了
+                                        或者你在别的地方设置了li的width</p>-->
+                                     <!-- 内容底部 -->
+                                     <div class="ui grid">
+                                         <div class="eleven wide column">
+                                            <!-- 头像日期 -->
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item">
+                                                    <img src="https://picsum.photos/id/1011/800/450" alt="" class="ui avatar image" th:src="${blog.user.avatar}">
+                                                    <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">陈龙</a></div>
+                                                </div>
+                                                <!-- 图标 -->
+                                                <div class="item">
+                                                    <i class="calendar icon"></i>上次更新时间:<span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}"></span>
+                                                </div>
+                                                <div class="item">
+                                                    <i class="eye icon"></i>  <span th:text="${blog.views}"></span>
+                                                </div>
+                                            </div>
+                                         </div>
+                                         <div class="right aligned five wide column m-padded-mini">
+                                             <a href="#" class="ui teal basic label" th:text="${blog.type.name}">
+                                                 认知升级
+                                             </a>
+                                         </div>
+                                     </div>
+                                </div>
+
+                                <div class="five wide column">
+                                    <!-- 图片 -->
+                                    <!--th:href="@{/blog/{id}(id=${blog.id})}"-->
+                                    <a href="#" th:href="@{/blog/{id}(id=${blog.id})}">
+                                        <img  class="ui rounded image" th:src="${blog.firstPicture}">
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--/*-->
+                        <!--后面的在运行的时候不加载-->
+                        <!-- 2 -->
+                        <div class="ui padded vertical segment m-padded-tb-large">
+
+                            <div class="ui grid stackable mobile reversed">
+                               
+                                <div class="eleven wide column">
+                                     <!-- 标题 -->
+                                     <h3 class="ui header">你真的理解什么是财富自由吗?</h3>
+                                     <p class="m-text">段落内容!!li{display:inline;width:120px;line-height:30px;float:left;}
+                                        加入 float:left;应该就可以了
+                                        或者你在别的地方设置了li的width>段落内容!!li{display:inline;width:120px;line-height:30px;float:left;}
+                                        加入 float:left;应该就可以了
+                                        或者你在别的地方设置了li的width</p>
+                                     <!-- 内容底部 -->
+                                     <div class="ui grid">
+                                         <div class="eleven wide column">
+                                            <!-- 头像日期 -->
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item">
+                                                    <img src="https://picsum.photos/id/1011/800/450" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header">陈龙</a></div>
+                                                </div>
+                                                <!-- 图标 -->
+                                                <div class="item">
+                                                    <i class="calendar icon"></i>2017-6-6
+                                                </div>
+                                                <div class="item">
+                                                    <i class="eye icon"></i>1307
+                                                </div>
+                                            </div>
+                                         </div>
+                                         <div class="right aligned five wide column m-padded-mini">
+                                             <a href="#" class="ui teal basic label">
+                                                 认知升级
+                                             </a>
+                                         </div>
+                                     </div>
+                                </div>
+
+                                <div class="five wide column">
+                                    <!-- 图片 -->
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/1011/800/450" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- 3 -->
+                        <div class="ui padded vertical segment m-padded-tb-large">
+
+                            <div class="ui grid stackable mobile reversed">
+                               
+                                <div class="eleven wide column">
+                                     <!-- 标题 -->
+                                     <h3 class="ui header">你真的理解什么是财富自由吗?</h3>
+                                     <p class="m-text">段落内容!!li{display:inline;width:120px;line-height:30px;float:left;}
+                                        加入 float:left;应该就可以了
+                                        或者你在别的地方设置了li的width>段落内容!!li{display:inline;width:120px;line-height:30px;float:left;}
+                                        加入 float:left;应该就可以了
+                                        或者你在别的地方设置了li的width</p>
+                                     <!-- 内容底部 -->
+                                     <div class="ui grid">
+                                         <div class="eleven wide column">
+                                            <!-- 头像日期 -->
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item">
+                                                    <img src="https://picsum.photos/id/1011/800/450" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header">陈龙</a></div>
+                                                </div>
+                                                <!-- 图标 -->
+                                                <div class="item">
+                                                    <i class="calendar icon"></i>2017-6-6
+                                                </div>
+                                                <div class="item">
+                                                    <i class="eye icon"></i>1307
+                                                </div>
+                                            </div>
+                                         </div>
+                                         <div class="right aligned five wide column m-padded-mini">
+                                             <a href="#" class="ui teal basic label">
+                                                 认知升级
+                                             </a>
+                                         </div>
+                                     </div>
+                                </div>
+
+                                <div class="five wide column">
+                                    <!-- 图片 -->
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/1011/800/450" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- 4 -->
+                        <div class="ui padded vertical segment m-padded-tb-large">
+
+                            <div class="ui grid stackable mobile reversed">
+                               
+                                <div class="eleven wide column">
+                                     <!-- 标题 -->
+                                     <h3 class="ui header">你真的理解什么是财富自由吗?</h3>
+                                     <p class="m-text">段落内容!!li{display:inline;width:120px;line-height:30px;float:left;}
+                                        加入 float:left;应该就可以了
+                                        或者你在别的地方设置了li的width>段落内容!!li{display:inline;width:120px;line-height:30px;float:left;}
+                                        加入 float:left;应该就可以了
+                                        或者你在别的地方设置了li的width</p>
+                                     <!-- 内容底部 -->
+                                     <div class="ui grid">
+                                         <div class="eleven wide column">
+                                            <!-- 头像日期 -->
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item">
+                                                    <img src="https://picsum.photos/id/1011/800/450" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header">陈龙</a></div>
+                                                </div>
+                                                <!-- 图标 -->
+                                                <div class="item">
+                                                    <i class="calendar icon"></i>2017-6-6
+                                                </div>
+                                                <div class="item">
+                                                    <i class="eye icon"></i>1307
+                                                </div>
+                                            </div>
+                                         </div>
+                                         <div class="right aligned five wide column m-padded-mini">
+                                             <a href="#" class="ui teal basic label">
+                                                 认知升级
+                                             </a>
+                                         </div>
+                                     </div>
+                                </div>
+
+                                <div class="five wide column">
+                                    <!-- 图片 -->
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/1011/800/450" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--*/-->
+                    </div>
+                   <!-- 博客列表底部 -->
+                   <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+                       <!---->
+                       <div class="ui middle aligned two column grid" >
+                           <div class="column">
+                               <a href="#" class="ui teal basic button" th:href="@{/(page=${page.number}-1)}" th:unless="${page.first}" >上一页</a>
+                           </div>
+                           <div class="right aligned column">
+                               <a href="#" class="ui  teal basic button" th:href="@{/(page=${page.number}+1)}" th:unless="${page.last}">下一页</a>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+
+                <!-- 右边的top -->
+                <div class="five wide column">
+                    <!--文件上传！！-->
+                   <!-- <form action="upload?classId=3" enctype="multipart/form-data" method="post">
+                        <input type="file" name="file">
+                        &lt;!&ndash;<input type="hidden" name="classId" value="3">&ndash;&gt;
+                        <input type="submit">
+                    </form>-->
+                    <div class="ui segments">
+                        <h1 style="color: teal">
+                            音乐播放器
+                        </h1>
+                        <link rel="stylesheet" th:href="@{/css/APlayer.min.css}">
+                        <div id="aplayer"></div>
+                    </div>
+                    <!-- 分类模块!! -->
+                    <div class="ui segments">
+                        <div class="ui secondary segment">
+                            <div class="ui two column grid">
+                                <div class="column"><i class="idea icon"></i>分类</div>
+                                <div class="right aligned column"><a href="#" target="_blank" th:href="@{/toType/-1}">
+                                    more <i class="angle double right icon"></i></a></div>
+                            </div>
+                        </div>
+
+                        <div class="ui teal segment">
+                            <div class="ui fluid vertical menu" >
+                                <!--th:href=""-->
+                                <a href="#" class="item"  th:each="type : ${types}">
+                                    <span th:text="${type.name}"></span>
+                                    <div class="ui teal basic left pointing label" th:text="${#arrays.length(type.blogs)}">13</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--标签模块  -->
+                    <div class="ui segments m-margin-top-large">
+                         <div class="ui secondary segment">
+                             <div class="ui two column grid">
+                                 <div class="column">
+                                     <i class="tags icon"></i>标签
+                                 </div>
+                                 <div class="right aligned column">
+                                     <a href="#" target="_blank" th:href="@{/toTag/-1}">more
+                                          <i class="angle double right icon">
+                                          </i></a>
+                                </div>
+                             </div>
+                         </div>
+                         <div class="ui teal segment">
+                             <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny" th:each="tag : ${tags}">
+                                <span th:text="${tag.name}"></span> <div class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>
+                             </a>
+                          </div>
+                     </div>
+                    <!-- 最新推荐模块 -->
+                      <div class="ui segments m-margin-top-large">
+                            <div class="ui secondary segment">
+                                        <i class="bookmark icon"></i>最新推荐
+                            </div>
+                            <div class="ui teal segment">
+                                <div class="ui segment" th:each="recommend : ${recommenedBlogs}">
+
+                                <!--th:href="@{/{id}(id=${recommend.id})}"-->
+                                <a href="#"  target="_blank" class="m-black m-text-thin"  th:text="${recommend.title}">用户故事(UserStory)</a>
+                                </div>
+                            </div>
+                          <!--/*-->
+                            <div class="ui segment">
+                                <a href="#" target="_blank" class="m-black m-text-thin">用户故事(UserStory)</a>
+                            </div>
+                            <div class="ui segment">
+                                <a href="#" target="_blank" class="m-black m-text-thin">用户故事(UserStory)</a>
+                            </div>
+                          <!--*/-->
+                        </div>
+                        <!-- 二维码模块 -->
+                            <!--横线  -->
+                            <h4 class="ui horizontal divider header">扫码关注我</h4>
+                         <div class="ui card centered" style="width: 200px;">
+                             <img th:src="@{/images/wechat_QRcode.jpg}" alt="" class="ui rounded image " >
+                         </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- 底部的footer -->
+    <footer th:replace="_fragment::footer" class="ui inverted vertical segment m-padded-tb-massive">
+
+    </footer>
+
+    <!--music player-->
+    <script th:src="@{/js/APlayer.min.js}"></script>
+    <!--引入fragment-->
+    <th:block th:replace="_fragment::script">
+
+    </th:block>
+
+    <!-- cdn引入jquery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <!--cdn引入semantic-ui的 此js依赖于jquery -->
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <script th:inline="javascript">
+        //音乐播放器
+        const ap = new APlayer({
+            container: document.getElementById('aplayer'),
+            mini: false,
+            autoplay: false,
+            theme: '#FADFA3',
+            loop: 'all',
+            order: 'random',
+            preload: 'auto',
+            volume: 0.7,
+            mutex: true,
+            listFolded: false,
+            listMaxHeight: 90,
+            lrcType: 3,
+            audio: [
+                {
+                    name: '精灵',
+                    artist: '林俊杰',
+                    //../../static
+                    url: '/mp3Res/精灵(完美推荐版)_林俊杰_128K.mp3',
+                    cover: '/images/jingling.jpg',
+                    lrc: 'lrc1.lrc',
+                    theme: '#ebd0c2'
+                },
+                {
+                    name: '有点甜',
+                    artist: '汪苏泷',
+                    url: '/mp3Res/有点甜_花泽香菜汪苏泷.mp3',
+                    cover: '/images/youdiant.jpg',
+                    lrc: 'lrc2.lrc',
+                    theme: '#46718b'
+                }
+            ]
+        });
+        $('.menu.toggle').click(function () {
+            $('.m-item').toggleClass('m-mobile-hide');
+        })
+    </script>
+</body>
+</html>
