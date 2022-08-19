@@ -64,3 +64,6 @@ logging:
     path: /log/blog-dev.log
 #用户头像测试版
 comment.avatar: /images/wechat_QRcode.jpg
+
+server:
+  port: 8081

@@ -10,7 +10,7 @@
     <!-- 引入自定义样式 -->
     <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
     <!-- semantic-ui的css样式文件 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" th:href="@{/lib/semantic/semantic.min.css}">
     <!--typo.css  -->
     <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
     <!-- 引入动画的css文件 -->
@@ -109,9 +109,9 @@
 <!--js的fragment模块-->
 <th:block th:fragment="script">
     <!-- cdn引入jquery -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js" th:src="@{/js/jquery-3.4.1.min.js}"></script>
     <!--cdn引入semantic-ui的 此js依赖于jquery -->
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js" th:src="@{/lib/semantic/semantic.min.js}" ></script>
     <!-- 代码高亮的js -->
     <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
     <!-- 自动生成目录 tocbot  -->

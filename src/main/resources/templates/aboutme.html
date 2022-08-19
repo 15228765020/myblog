@@ -49,6 +49,8 @@
                             <p>我的相册</p>
                         </div>
                         <div class="ui segment">
+                            <button id="my-photo" class="ui basic button"><i class="icon user"></i> 我的相册 </button>
+
                             <div class="ui small images">
                                 <img src="images/兴隆湖.jpg">
                                 <img src="images/兴隆湖.jpg">
@@ -171,6 +173,7 @@
         $('.menu.toggle').click(function () {
             $('.m-item').toggleClass('m-mobile-hide');
         });
+
         // wechat
         $('.wechat').popup({
         popup : $('.wechat.popup'),
@@ -178,6 +181,11 @@
         position : 'bottom center'
         });
         $('.qq').popup();
+
+        //点击相册按钮
+        $('#my-photo').click(function () {
+            window.location.href = "http://localhost:8081/album";
+        });
 
     </script>
 </body>

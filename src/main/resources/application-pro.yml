@@ -58,5 +58,3 @@ logging:
 #不确定的问题
   file:
     path: /log/blog-pro.log
-server:
-  port: 8081
