@@ -1,5 +1,7 @@
 package com.my.blog.vo;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,86 +13,106 @@ import java.util.function.Function;
 
 public class PageVo implements Page {
 
-    private T data;
+  /*  private T data;
 
+    public Object getData(TypeReference<Object> tTypeReference) {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        return objectMapper.convertValue(data,tTypeReference);
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }*/
+
+  private Page page;
+
+    public PageVo() {
+    }
+
+    public PageVo(Page page) {
+
+        this.page = page;
+    }
 
     @Override
     public int getTotalPages() {
-        return 0;
+        return page.getTotalPages();
     }
 
     @Override
     public long getTotalElements() {
-        return 0;
+        return page.getTotalElements();
     }
 
     @Override
     public Page map(Function converter) {
-        return null;
+        return page.map(converter);
     }
 
     @Override
     public int getNumber() {
-        return 0;
+        return page.getNumber();
     }
 
     @Override
     public int getSize() {
-        return 0;
+        return page.getSize();
     }
 
     @Override
     public int getNumberOfElements() {
-        return 0;
+        return page.getNumberOfElements();
     }
 
     @Override
     public List getContent() {
-        return null;
+        return page.getContent();
     }
 
     @Override
     public boolean hasContent() {
-        return false;
+        return page.hasContent();
     }
 
     @Override
     public Sort getSort() {
-        return null;
+        return page.getSort();
     }
 
     @Override
     public boolean isFirst() {
-        return false;
+        return page.isFirst();
     }
 
     @Override
     public boolean isLast() {
-        return false;
+        return page.isLast();
     }
 
     @Override
     public boolean hasNext() {
-        return false;
+        return page.hasNext();
     }
 
     @Override
     public boolean hasPrevious() {
-        return false;
+        return page.hasPrevious();
     }
 
     @Override
     public Pageable nextPageable() {
-        return null;
+        return page.nextPageable();
     }
 
     @Override
     public Pageable previousPageable() {
-        return null;
+        return page.previousPageable();
     }
 
     @Override
     public Iterator iterator() {
-        return null;
+        return page.iterator();
     }
 }

@@ -33,8 +33,7 @@ public class BlogServiceImpl implements BlogService {
     public Blog addBlog(Blog blog) {
 
         //第一次保存时
-        if (blog.getId() == null)
-        {
+        if (blog.getId() == null){
             //保存博客时初始化一些数据
             blog.setCreateTime(new Date());
             blog.setUpdateTime(new Date());
@@ -42,8 +41,7 @@ public class BlogServiceImpl implements BlogService {
             blog.setViews(0);
         }
         //非第一次保存
-        else
-            {
+        else{
                 blog.setUpdateTime(new Date());
             }
 

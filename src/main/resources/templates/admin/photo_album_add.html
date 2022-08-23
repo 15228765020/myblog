@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragment::common_header(~{::title})">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的相册新增页面</title>
+    <!-- 引入自定义样式 -->
+    <link rel="stylesheet" href="../../static/css/me.css">
+    <!-- semantic-ui的css样式文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!-- md的css样式 -->
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.css">
+
+</head>
+<body>
+    <!-- 导航 -->
+    <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" th:replace="admin/_fragment::menu(5)">
+
+    </nav>
+    <!-- 二级导航 -->
+    <div class="ui pointing attached menu">
+        <div class="ui container">
+            <a href="#" th:href="@{/admin/tags/input}" class="active teal item">发布</a>
+            <a href="#" th:href="@{/admin/tags}" class="item">列表</a>
+        </div>
+    </div>
+    <!-- 中间内容 -->
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="m-container m-padded-tb-large">
+        <div class="ui container">
+            <!--th:object="${tag}"  th:action=" *{id}==null ? @{/admin/tags} : @{/admin/tags/{id}(id=*{id}) }"-->
+            <!--th:action="@{albumAdd}"  method="post"-->
+            <!--<form  class="ui form">-->
+
+                <div class="inline field">
+                    <div class="ui fluid left labeled input">
+                        <label class="ui teal basic label">分类</label>
+                        <!--加一个隐藏组件 th:value="*{id}"-->
+                        <!--<input type="hidden" name="id" th:value="${photo.id}" >-->
+
+                        <!--这里的name值要和tag里面的属性名相同 tag被封装成pageable传递给后端 即：不能用其它，就只能name  th:value="*{name}"-->
+                        <!--<input id="tagName" type="text" name="title" placeholder="输入图片标题或者描述" >-->
+                        <!--<input type="file"  name="files" multiple="multiple">-->
+                        <!--<input type="file" multiple>-->
+
+                        <div class="dv_info_box" th:if="${photo==null}">
+                            <div class="dv_pic_box">
+
+
+                            </div>
+                            <button class="btn_add_pic" type="button">添加图片</button>
+                        </div>
+
+                        <div class="dv_info_box" th:if="${photo!=null && photo.id!=null}">
+
+                            <div class="dv_pic_box">
+                                <div class="dv_pic_item">
+                                    <img th:src="${photo.getImgBase64()}" alt="" id="img_1">
+                                    <input type="file" name="files" class="input_file_style" id="file_1" value="img_1">
+
+                                    <!--输入城市-->
+                                    <input type="text" name="cityName" id="cityName_1" placeholder="添加一个地点(不知道填未知)">
+
+                                    <!--输入图片文字-->
+                                    <input type="text" name="title" id="title_1" placeholder="添加图片描述/文字(非必填)">
+
+                                </div>
+
+                            </div>
+
+
+                            <!--<div class="dv_pic_box">
+                                <div class="dv_pic_item">';
+                                    <img src="" alt="" id="img_'+btnCount+'">';
+                                    <input type="file" name="files" class="input_file_style" id="file_'+btnCount+'" value="img_'+btnCount+'">'
+                                </div>';
+
+                            </div>-->
+                            <button class="btn_add_pic" type="button">添加图片</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--前端非空验证-->
+                <div class="ui error message" ></div>
+              <!--  测试数据tag2
+                <div th:text="${tag}"></div>-->
+                <!--后台非空验证-->
+
+                <!--     <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+                  <i class="close icon"></i>
+                           <div class="header">验证失败</div>
+                           <p th:errors="*{name}">提交信息不符合规则</p>
+                       </div> -->
+<!--/*/   /*/-->
+                <div class="ui right aligned container">
+                    <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+                    <!--<button class="ui secondary button">保存</button>-->
+                    <button type="button" class="ui teal submit button" id="sub">提交</button>
+                </div>
+            <!--</form>-->
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+
+
+    <!-- 底部的footer -->
+    <footer class="ui inverted vertical segment m-padded-tb-massive" th:fragment="admin/_fragment::footer">
+
+    </footer>
+
+    <th:block th:replace="admin/_fragment::script">
+
+    </th:block>
+
+
+    <!-- 引入md的js -->
+    <script src="../../static/lib/editormd/editormd.min.js"></script>
+    <script>
+
+        $(function () {
+
+            console.info("加载了页面~~~");
+            //加载图片
+            $(".error.message").attr("style","display:none");
+
+        });
+
+        $('.menu.toggle').click(function () {
+            $('.m-item').toggleClass('m-mobile-hide');
+        });
+        $('.eg1.dropdown').dropdown({
+            action: 'hide',
+            on:'hover'
+        });
+        $('.selection.dropdown').dropdown();
+
+        $('.ui.form').form({
+            fields :{
+                name :{
+                    identifier: 'name' ,
+                    rules :[{
+                        type : 'empty',
+                        prompt : '请输入标签名称'
+                        }]
+                }
+            }
+        });
+        let btnCount = 0;
+        let base64ImgStrArr  =[];
+        let photoVos = [];
+
+        $('.btn_add_pic').click(function () {
+            btnCount++;
+
+            let divItemHtml =   '<div class="dv_pic_item">';
+            let imgHtml =       '<img src="" alt="" id="img_'+btnCount+'">';
+
+            let inputHtml =     '<input type="file" name="files" class="input_file_style" id="file_'+btnCount+'" value="img_'+btnCount+'">';
+
+            <!--输入城市-->
+            let cityHtml='<input type="text" name="cityName" id="cityName_'+btnCount+'" placeholder="添加一个地点(不知道填未知)">';
+                <!--输入图片文字-->
+            let titleHtml = '<input type="text" name="title" id="title_'+btnCount+'" placeholder="添加图片描述/文字(非必填)">';
+
+            let divHtml =           '</div>';
+
+            let item = divItemHtml+imgHtml+inputHtml+divHtml+cityHtml+titleHtml;
+
+            $('.dv_pic_box').append(item);
+
+            $('.input_file_style').change(function () {
+
+                //当前imgId
+              let curImgId =  $(this).attr('value');
+    
+              //当前的文件id
+              let  fileId = $(this).attr('id');
+              //$(curImgId)
+              let curImg = document.getElementById(curImgId);
+              
+              let curFile = document.getElementById(fileId);
+
+                console.log('档期那选中的文件:'+typeof curFile);
+
+                console.log('档期那选中的文件:',curFile);
+
+              //&& curFile[0]
+              if (curFile ){
+                  console.info("curFile.files[0]~~~",curFile.files);
+                  curImg.src = window.URL.createObjectURL(curFile.files[0]);
+                  let reader = new FileReader();
+
+                  let AllowImgFileSize = 2100000; //上传图片最大值(单位字节)
+
+                  //将文件以Data URL形式读入页面
+                  let imgUrlBase64 = reader.readAsDataURL(curFile.files[0]);
+
+                  console.log(imgUrlBase64);
+
+                  reader.onload = function (e) {
+
+                      //图片像素 540 x 700 最佳
+                      //var ImgFileSize = reader.result.substring(reader.result.indexOf(",") + 1).length;//截取base64码部分（可选可不选，需要与后台沟通）
+                      if (AllowImgFileSize != 0 && AllowImgFileSize < reader.result.length) {
+                          alert('上传失败，请上传不大于2M的图片！');
+                          return;
+                      } else {
+                          //执行上传操作
+
+                          base64ImgStrArr.push(reader.result);
+
+                      }
+                  };
+
+                  console.log('档期那选中的图片路径:'+curImg.src)
+              }else {
+
+                  curFile.select();
+                  //ie9以上版本需加上blur
+                  curFile.blur();
+                  let imgSrc = document.selection.createRange().text;
+
+                  //图片异常的捕捉，防止用户修改后缀来伪造图片
+                  try{
+                      curImg.style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                      curImg.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+                  }
+                  catch(e)
+                  {
+                      alert("上传的图片格式不正确，请重新选择");
+                      return false;
+                  }
+                  document.selection.empty();
+              }
+            })
+
+        });
+        //提交图片base64数组
+        console.log("准备图片的数组base64ImgStrArr",base64ImgStrArr);
+        console.log("待提交的数组photoVos",photoVos);
+
+
+
+        $('#sub').click(function () {
+
+            for (let i = 1;i<=btnCount;i++){
+
+                let PhotoVo = {};
+
+                let cityName =  $("#cityName_"+i).val();
+                //必须添加地点
+                if (cityName==null ) {
+                    $(".error.message").attr("style","display:block");
+                    $(".error.message").text("必须添加一个地点(不知道填未知)");
+                    return;
+                }
+
+                let title = $("#title_"+i).val();
+
+                let img = base64ImgStrArr[i-1];
+
+                PhotoVo.title = title;
+                PhotoVo.imgBase64 = img;
+                PhotoVo.cityName = cityName;
+
+                photoVos.push(PhotoVo);
+            }
+
+            //校验是否有图片数据
+
+            if (!base64ImgStrArr ||base64ImgStrArr.length ===0) {
+                console.log("请添加图片后再提交");
+
+                $(".error.message").attr("style","display:block");
+                $(".error.message").text("请添加图片后再提交");
+                return;
+            }
+
+            $.ajax({
+
+                url:'/admin/album/albumAdd',
+                data: JSON.stringify(photoVos),
+                contentType:'application/json',
+                // dataType:'application/json',
+                type:'POST',
+                sync:false,
+                success: function (data) {
+                    if (data){
+                        console.log("保存图片成功2~~",data);
+                        $(".error.message").attr("style","display:none");
+                        //TODO 时候修改成域名跳转 http://120.76.134.121/
+                        window.location.href = "http://localhost:8081/admin/album/photoAlbumIndex";
+                    }else {
+
+                    }
+
+                }
+
+
+            })
+
+
+        })
+
+
+        // var contentEditor;
+        // $(function() {
+        //     contentEditor = editormd("md-content", {
+        //         width   : "100%",
+        //         height  : 640,
+        //         syncScrolling : "single",
+        //         path    : "../../static/lib/editormd/lib/"
+        //     });
+        //
+            /*
+            // or
+            testEditor = editormd({
+                id      : "test-editormd",
+                width   : "90%",
+                height  : 640,
+                path    : "../lib/"
+            });
+            */
+
+    </script>
+</body>
+</html>

@@ -10,8 +10,14 @@
     <!-- semantic-ui的css样式文件 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 
+
 </head>
 <body>
+<style type="text/css">
+
+
+
+</style>
     <!-- 导航 -->
     <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" th:replace="_fragment::menu(5)">
         <div class="ui container">
@@ -40,43 +46,44 @@
         <div class="ui container">
             <!-- 关于我的布局 -->
             <div class="ui grid segment">
-                <!-- 左边 -->
+
 
                 <div class="eleven wide column">
-                    <img src="https://picsum.photos/id/1005/800/600" alt="" class="ui rounded image">
-                    <div class="ui segments">
-                        <div class="ui center aligned segment">
-                            <p>我的相册</p>
-                        </div>
-                        <div class="ui segment">
-                            <button id="my-photo" class="ui basic button"><i class="icon user"></i> 我的相册 </button>
+                    <!-- 左边 -->
+                    <button id="my_photo" > 我的相册 </button>
+                    <!--<img src="https://picsum.photos/id/1005/800/600" alt="" class="ui rounded image">-->
+                    <!--<div class="ui segments">-->
+                        <!--<div class="ui center aligned segment">-->
+                            <!--<p>我的相册</p>-->
+                        <!--</div>-->
+                        <!--<div class="ui segment">-->
 
-                            <div class="ui small images">
-                                <img src="images/兴隆湖.jpg">
-                                <img src="images/兴隆湖.jpg">
-                                <img src="images/兴隆湖.jpg">
-                                <img src="images/兴隆湖.jpg">
+                            <!--<div class="ui small images">-->
+                                <!--<img src="images/兴隆湖.jpg">-->
+                                <!--<img src="images/兴隆湖.jpg">-->
+                                <!--<img src="images/兴隆湖.jpg">-->
+                                <!--<img src="images/兴隆湖.jpg">-->
 
-                            </div>
-                        </div>
-                        <div class="ui segment">
-                            <div class="ui small images">
-                                <img src="images/兴隆湖.jpg">
-                                <img src="images/兴隆湖.jpg">
-                                <img src="images/兴隆湖.jpg">
-                                <img src="images/兴隆湖.jpg">
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="ui segment">-->
+                            <!--<div class="ui small images">-->
+                                <!--<img src="images/兴隆湖.jpg">-->
+                                <!--<img src="images/兴隆湖.jpg">-->
+                                <!--<img src="images/兴隆湖.jpg">-->
+                                <!--<img src="images/兴隆湖.jpg">-->
 
-                            </div>                        </div>
-                        <div class="ui segment">
-                            <div class="ui small images">
-                                <img src="images/兴隆湖.jpg">
-                                <img src="images/兴隆湖.jpg">
-                                <img src="images/兴隆湖.jpg">
-                                <img src="images/兴隆湖.jpg">
+                            <!--</div>                        </div>-->
+                        <!--<div class="ui segment">-->
+                            <!--<div class="ui small images">-->
+                                <!--<img src="images/兴隆湖.jpg">-->
+                                <!--<img src="images/兴隆湖.jpg">-->
+                                <!--<img src="images/兴隆湖.jpg">-->
+                                <!--<img src="images/兴隆湖.jpg">-->
 
-                            </div>                        </div>
+                            <!--</div>                        </div>-->
 
-                    </div>
+                    <!--</div>-->
                 </div>
                 <!-- 右边 -->
                 <div class="five wide column">
@@ -183,7 +190,7 @@
         $('.qq').popup();
 
         //点击相册按钮
-        $('#my-photo').click(function () {
+        $('#my_photo').click(function () {
             window.location.href = "http://localhost:8081/album";
         });
 

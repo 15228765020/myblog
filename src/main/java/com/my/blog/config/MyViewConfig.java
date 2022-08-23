@@ -11,5 +11,8 @@ public class MyViewConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         //我的相册
         registry.addViewController("/album").setViewName("photo_album.html");
+
+        //
+        registry.addViewController("/admin/album/add.html").setViewName("admin/photo_album_add.html");
     }
 }
