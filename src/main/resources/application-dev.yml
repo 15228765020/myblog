@@ -65,5 +65,5 @@ logging:
 #用户头像测试版
 comment.avatar: /images/wechat_QRcode.jpg
 
-server:
-  port: 8081
+#server:
+#  port: 8081
