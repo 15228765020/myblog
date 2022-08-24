@@ -20,26 +20,7 @@
 </style>
     <!-- 导航 -->
     <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" th:replace="_fragment::menu(5)">
-        <div class="ui container">
-            <div class="ui inverted secondary stackable menu">
-                <h2 class="ui teal header item"> Cheniubility's Blog</h2>
-                <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>归档</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
-                <div class="right item">
-                    <div class="ui icon inverted transparent input">
-                        <!-- transparent使得搜索框变透明 -->
-                        <input type="text" placeholder="搜索">
-                        <i class="search link icon"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-            <i class="sidebar icon"></i>
-        </a>
+
     </nav>
     <!-- 中间内容 -->
     <div class="m-container m-padded-tb-large">
@@ -51,39 +32,7 @@
                 <div class="eleven wide column">
                     <!-- 左边 -->
                     <button id="my_photo" > 我的相册 </button>
-                    <!--<img src="https://picsum.photos/id/1005/800/600" alt="" class="ui rounded image">-->
-                    <!--<div class="ui segments">-->
-                        <!--<div class="ui center aligned segment">-->
-                            <!--<p>我的相册</p>-->
-                        <!--</div>-->
-                        <!--<div class="ui segment">-->
 
-                            <!--<div class="ui small images">-->
-                                <!--<img src="images/兴隆湖.jpg">-->
-                                <!--<img src="images/兴隆湖.jpg">-->
-                                <!--<img src="images/兴隆湖.jpg">-->
-                                <!--<img src="images/兴隆湖.jpg">-->
-
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="ui segment">-->
-                            <!--<div class="ui small images">-->
-                                <!--<img src="images/兴隆湖.jpg">-->
-                                <!--<img src="images/兴隆湖.jpg">-->
-                                <!--<img src="images/兴隆湖.jpg">-->
-                                <!--<img src="images/兴隆湖.jpg">-->
-
-                            <!--</div>                        </div>-->
-                        <!--<div class="ui segment">-->
-                            <!--<div class="ui small images">-->
-                                <!--<img src="images/兴隆湖.jpg">-->
-                                <!--<img src="images/兴隆湖.jpg">-->
-                                <!--<img src="images/兴隆湖.jpg">-->
-                                <!--<img src="images/兴隆湖.jpg">-->
-
-                            <!--</div>                        </div>-->
-
-                    <!--</div>-->
                 </div>
                 <!-- 右边 -->
                 <div class="five wide column">
@@ -94,7 +43,7 @@
                     </div>
                     <div class="ui attached segment">
                         <p class="m-text">
-                            网名cheniubility，并不niubi，只是鼓励鼓励自己，那段时间心情太丧了...
+                            那段时间心情太丧了...
                             java渣一枚，种种经历过后才知道自己，认清自己，接收自己的普通，还要知道要不普通，你就得让自己在学习之路上不要"太普通",
                             另外,学习之路上，不论何时一定要谦虚谨慎，学习道路上时刻保持空杯思想；
                             生活上，我想我并没有太多的经历，以至于自己遇到坎坷就找不到排解，甚至自暴自弃，所以在生活上要么"走出去",要么就
@@ -191,6 +140,7 @@
 
         //点击相册按钮
         $('#my_photo').click(function () {
+            //TODO 测试修改1 window.location.href = "http://www.blog4cl.top/album"
             window.location.href = "http://localhost:8081/album";
         });
 

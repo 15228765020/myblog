@@ -27,6 +27,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Controller
 
@@ -53,7 +54,7 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index(@PageableDefault(sort ={"updateTime"},size = 8,direction = Sort.Direction.DESC) Pageable pageable, Model model){
-    //typeService.listType()
+
 
         Page<Blog> page = blogService.listBlog(pageable);
         //管理请求的url 管理请求人的url
@@ -81,7 +82,8 @@ public class IndexController {
                 //更新访问时间
                 visitorRecords.setLastVisitTime(new Date());
 
-                Integer totalVisitNumber = visitorRecords.getTotalVisitNumber();
+
+            Integer totalVisitNumber = visitorRecords.getTotalVisitNumber();
                 totalVisitNumber++;
                 visitorRecords.setTotalVisitNumber(totalVisitNumber);
                 save1Res = visitorRecordsService.save(visitorRecords);

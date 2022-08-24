@@ -1,5 +1,6 @@
 package com.my.blog.service;
 
+import com.my.blog.constants.CommonConstants;
 import com.my.blog.dao.PhotoRepository;
 import com.my.blog.po.Photo;
 import com.my.blog.vo.AblumVo;
@@ -7,6 +8,8 @@ import com.my.blog.vo.PageVo;
 import com.my.blog.vo.PhotoVo;
 import com.my.blog.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,10 +21,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PhotoServiceImpl implements PhotoService {
@@ -29,11 +29,12 @@ public class PhotoServiceImpl implements PhotoService {
     @Autowired
     private PhotoRepository photoRepository;
 
+    //本地缓存  -- 事实证明在我这种情形下本地缓存更快
+    private Map<String, List<AblumVo>> localCache = new HashMap<>();
+
+
     @Override
     public PageVo getPage(Pageable pageable) {
-
-
-//        ExampleMatcher.matching().withMatcher("isDel",)
 
         Page<Photo> photos = photoRepository.findAll(new Specification<Photo>() {
             @Override
@@ -91,9 +92,15 @@ public class PhotoServiceImpl implements PhotoService {
         return photoRepository.getOne(id);
     }
 
+//    @CacheEvict(cacheNames = {"Ablums"},key = "'findAblums'")
     @Transactional
     @Override
     public void addPhoto(PhotoVo[] photoVos) {
+
+        //添加数据时候先使缓存失效
+        if (!localCache.isEmpty()){
+            localCache.remove(CommonConstants.LOCAL_CACHE_ABLUMS_KEY);
+        }
 
         Arrays.stream(photoVos).forEach(photoVo -> {
 
@@ -117,8 +124,17 @@ public class PhotoServiceImpl implements PhotoService {
 
     }
 
+//    本地缓存
+//    @Cacheable(cacheNames = {"Ablums"},key = "#root.methodName")
     @Override
     public ResultVo<List<AblumVo>> findAblums() {
+
+        if (!localCache.isEmpty()){
+
+            List<AblumVo> ablumVos = localCache.get(CommonConstants.LOCAL_CACHE_ABLUMS_KEY);
+
+            return new ResultVo<List<AblumVo>>(ablumVos);
+        }
 
         //photoRepository.
 
@@ -139,6 +155,8 @@ public class PhotoServiceImpl implements PhotoService {
 
             ablumVos.add(ablumVo);
         }
+
+        localCache.put("cache",ablumVos);
 
         ResultVo<List<AblumVo>> resultVo = new ResultVo<>(ablumVos);
 

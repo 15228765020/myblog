@@ -8,5 +8,8 @@ public class CommonConstants {
     public final static String SHANG_HAI ="上海";
     public final static String CHENG_DU = "成都";
     public final static String BEI_JING = "北京";
+    public final static String LOCAL_CACHE_ABLUMS_KEY = "cache";
+
+
 
 }

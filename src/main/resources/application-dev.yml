@@ -40,15 +40,34 @@ spring:
     url: jdbc:mysql://120.76.134.121:3306/blog?useUnicode=true&characterEncoding=utf-8
     username: root
     password: cl520
+
 #数据库链接操作
   jpa:
 #    hibernate:
 #      ddl-auto: update
-    show-sql: false
+    show-sql: true
+#    redis
+  redis:
+    host: 120.76.134.121
+    port: 6379
+    password: 123456
+    #springchace
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600000
+      key-prefix: MYABLUNM_CACHE_
+      use-key-prefix: true
+#      解决缓存穿透
+      cache-null-values: true
+#      解决缓存雪崩
+
+
 # 用于通过IP查找地址的百度API
 baiduApi:
   accessKey: rTOF8YmcKcaGiscTrpeRW8NbojgUZeyp
 #wxpusher UID和APP_TOKEN AT_bcmk4EPfjo8l2Ik3LrfEvVjhFplnJUA8
+#微信消息推送
 wxpusher:
   app_token: AT_bcmk4EPfjo8l2Ik3LrfEvVjhFplnJUA8
   uid: UID_XSZ0S1gHuhiz4dKvXut30942p4sA
@@ -65,5 +84,5 @@ logging:
 #用户头像测试版
 comment.avatar: /images/wechat_QRcode.jpg
 
-#server:
-#  port: 8081
+server:
+  port: 8081

@@ -4,7 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.my</groupId>
     <artifactId>blog</artifactId>
-    <version>0.0.6.1</version>
+    <!--<version>0.0.6.1</version>-->
+    <version>22_8_23</version>
     <name>blog</name>
     <description>Demo project for Spring Boot</description>
     <!--将项目打成jar包-->
@@ -106,6 +107,33 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!--redis-starter-->
+        <!-- 当前lettuce高并发下没有及时回收导致OOM和间接性断连问题 等待官方更新-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.lettuce</groupId>
+                    <artifactId>lettuce-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--使用jedis-->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+
+
+        <!--spring整合的springCache使用redis作为缓存-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+
+
     </dependencies>
 
     <dependencyManagement>
