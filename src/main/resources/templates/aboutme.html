@@ -19,7 +19,7 @@
 
 </style>
     <!-- 导航 -->
-    <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" th:replace="_fragment::menu(5)">
+    <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" th:replace="_fragment::menu(6)">
 
     </nav>
     <!-- 中间内容 -->
@@ -140,8 +140,9 @@
 
         //点击相册按钮
         $('#my_photo').click(function () {
-            //TODO 测试修改1 window.location.href = "http://www.blog4cl.top/album"  http://www.blog4cl.top/
-            window.location.href = "http://www.blog4cl.top/album";
+            //TODO 测试修改1 window.location.href = "http://www.blog4cl.top/album"  http://localhost:8081/
+            window.location.href = "http://localhost:8081/album";
+            // window.location.href = "http://www.blog4cl.top/album";
         });
 
     </script>

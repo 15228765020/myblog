@@ -267,10 +267,26 @@
                     </form>-->
                     <div class="ui segments">
                         <h1 style="color: teal">
-                            音乐播放器
+                            音乐播放器【左下角】
                         </h1>
                         <link rel="stylesheet" th:href="@{/css/APlayer.min.css}">
                         <div id="aplayer"></div>
+                        <!--歌单列表 2639655407 7337208419-->
+                        <meting-js
+                                id="2639655407"
+                                type="playlist"
+                                server="tencent"
+                                fixed="true"
+                                autoplay="true"
+                                loop="all"
+                                order="random"
+                                preload="auto"
+                                list-folded="ture"
+                                list-max-height="500px"
+
+                        >
+                        </meting-js>
+
                     </div>
                     <!-- 分类模块!! -->
                     <div class="ui segments">
@@ -352,6 +368,10 @@
 
     <!--music player-->
     <script th:src="@{/js/APlayer.min.js}"></script>
+
+    <!-- require MetingJS -->
+    <script th:src="@{'https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js'}"></script>
+
     <!--引入fragment-->
     <th:block th:replace="_fragment::script">
 
@@ -364,7 +384,7 @@
 
     <script th:inline="javascript">
         //音乐播放器
-        const ap = new APlayer({
+       /* const ap = new APlayer({
             container: document.getElementById('aplayer'),
             mini: false,
             autoplay: false,
@@ -396,6 +416,15 @@
                     theme: '#46718b'
                 }
             ]
+        });*/
+        const ap = new APlayer({
+            container: document.getElementById('aplayer'),
+            audio: [{
+                name: '今日歌单',
+                artist: '林俊杰神级live现场(播放器左下角)',
+                url: 'url.mp3',
+                cover: 'cover.jpg'
+            }]
         });
         $('.menu.toggle').click(function () {
             $('.m-item').toggleClass('m-mobile-hide');

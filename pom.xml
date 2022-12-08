@@ -5,7 +5,7 @@
     <groupId>com.my</groupId>
     <artifactId>blog</artifactId>
     <!--<version>0.0.6.1</version>-->
-    <version>22_8_23</version>
+    <version>22_9_1</version>
     <name>blog</name>
     <description>Demo project for Spring Boot</description>
     <!--将项目打成jar包-->

@@ -55,6 +55,8 @@
 <h1> chenlong's gallery</h1>
 <div id="pp_gallery" class="pp_gallery">
 
+    <div id="pp_loading1" class="pp_loading"></div>
+
     <div id="pp_loading" class="pp_loading"></div>
     <div id="pp_next" class="pp_next"></div>
     <div id="pp_prev" class="pp_prev"></div>
@@ -124,7 +126,7 @@
     $(function() {
 
         //组装数据
-
+        $("#pp_loading1").show();
         $.ajax({
            url:"ablum/index",
            // data:null,
@@ -150,9 +152,9 @@
 
                            albumHtml+="<div class=\"content\">";
 
-                                albumHtml+="<img style='width: 105px;height: 140px' id='img_"+i+j+"' src=\""+arrL2[j].imgBase64+"\" alt=\""+arrL2[j].imgBase64+"\" />";
+                           albumHtml+="<img style='width: 105px;height: 140px' id='img_"+i+j+"' src=\""+arrL2[j].imgBase64+"\" alt=\""+arrL2[j].imgBase64+"\" />";
                                 //console.log("arrL2[j].title~~",arrL2[j].title)
-                                albumHtml+="<span>"+arrL2[j].title+"</span>";
+                           albumHtml+="<span>"+arrL2[j].title+"</span>";
 
                            albumHtml+="</div>";
 
@@ -161,15 +163,16 @@
                            albumHtml+=arrL1[i].cityName;
                            albumHtml+="</div>";
 
-                        albumHtml+="</div>";
+                           albumHtml+="</div>";
 
 
-                        container.append(albumHtml);
+                           container.append(albumHtml);
 
                }
-               container.append("<div id=\"pp_back\" class=\"pp_back\">我的相册</div>");
+                           container.append("<div id=\"pp_back\" class=\"pp_back\">我的相册</div>");
 
-               //渲染完成，再缩放每个相册的img元素
+               //渲染完成，隐藏加载gif
+               $("#pp_loading1").hide();
 
               /* for (let i = 0; i <arrL1.length; i++) {
 

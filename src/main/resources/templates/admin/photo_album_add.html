@@ -147,6 +147,19 @@
 
         });
 
+        //删除点击事件
+
+        function Del_Class_dv_pic_item_Dom(obj){
+            //获取obj的父类元素进行删除
+
+            console.log("$(obj)==>",$(obj));
+
+            let dv_pic_item_parent = $(obj).parent();
+            console.log("dv_pic_item_parent==>",dv_pic_item_parent);
+
+            dv_pic_item_parent.remove();
+
+        }
         $('.menu.toggle').click(function () {
             $('.m-item').toggleClass('m-mobile-hide');
         });
@@ -175,18 +188,21 @@
             btnCount++;
 
             let divItemHtml =   '<div class="dv_pic_item">';
+
             let imgHtml =       '<img src="" alt="" id="img_'+btnCount+'">';
 
             let inputHtml =     '<input type="file" name="files" class="input_file_style" id="file_'+btnCount+'" value="img_'+btnCount+'">';
 
-            <!--输入城市-->
-            let cityHtml='<input type="text" name="cityName" id="cityName_'+btnCount+'" placeholder="添加一个地点(不知道填未知)">';
+                <!--输入城市-->
+            let cityHtml=       '<input type="text" maxlength="10" name="cityName" id="cityName_'+btnCount+'" placeholder="添加一个地点(不知道填未知)">';
                 <!--输入图片文字-->
-            let titleHtml = '<input type="text" name="title" id="title_'+btnCount+'" placeholder="添加图片描述/文字(非必填)">';
+            let titleHtml =     '<input type="text" maxlength="10" name="title" id="title_'+btnCount+'" placeholder="添加图片描述/文字(非必填)">';
 
-            let divHtml =           '</div>';
+            let delBtnHtml =    '<button type="button" onclick="Del_Class_dv_pic_item_Dom(this)">删除</button>';
 
-            let item = divItemHtml+imgHtml+inputHtml+divHtml+cityHtml+titleHtml;
+            let divHtml =       '</div>';
+
+            let item = divItemHtml+imgHtml+inputHtml+cityHtml+titleHtml+delBtnHtml+divHtml;
 
             $('.dv_pic_box').append(item);
 
@@ -311,7 +327,9 @@
                         console.log("保存图片成功2~~",data);
                         $(".error.message").attr("style","display:none");
                         //TODO 测试修改2 时候修改成域名跳转 http://120.76.134.121/  http://www.blog4cl.top/ http://localhost:8081
-                        window.location.href = "http://www.blog4cl.top/admin/album/photoAlbumIndex";
+                        window.location.href = "http://localhost:8081/admin/album/photoAlbumIndex";
+                        // window.location.href = "http://www.blog4cl.top/admin/album/photoAlbumIndex";
+
                     }else {
 
                     }

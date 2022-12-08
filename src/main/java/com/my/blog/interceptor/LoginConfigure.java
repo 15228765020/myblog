@@ -9,9 +9,13 @@ public class LoginConfigure implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor())
-                .addPathPatterns("/admin/**")
-                .excludePathPatterns("/admin")
-                .excludePathPatterns("/admin/login")
+                .addPathPatterns("/admin/**")//拦截
+                .excludePathPatterns("/admin/logout")//不拦截
+
+//                .excludePathPatterns("/admin")
+                .excludePathPatterns("/admin/login")//不拦截
+                .excludePathPatterns("/admin/loginPage")
+                .excludePathPatterns("/admin/index.html")
 //                .excludePathPatterns("/static/*")
 
             ;

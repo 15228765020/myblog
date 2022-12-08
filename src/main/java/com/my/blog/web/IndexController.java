@@ -1,5 +1,6 @@
 package com.my.blog.web;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
 import com.my.blog.po.Address;
 import com.my.blog.po.Blog;
@@ -102,7 +103,10 @@ public class IndexController {
                 //访问ip
                 visitorRecords.setVisitorIp(vistorIp);
                 //访问者地址
-                visitorRecords.setVisitorAddress(address.getAddress());
+                if (ObjectUtil.isNotNull(address)){
+
+                    visitorRecords.setVisitorAddress(address.getAddress());
+                }
 
                 visitorRecords1 =  visitorRecordsService.save(visitorRecords);
                 logger.error("这个ip第一次访问"+e.getMessage());
@@ -171,7 +175,12 @@ public class IndexController {
         //获取百度通过ip获取地址的接口返回数据
         String result = HttpClient.doGet(requestPath);
 
-        Address address = JSON.parseObject(result, Address.class);
+        Address address = null;
+        try {
+            address = JSON.parseObject(result, Address.class);
+        } catch (Exception e) {
+            logger.info("当前地址为空~~");
+        }
 
         return address;
     }

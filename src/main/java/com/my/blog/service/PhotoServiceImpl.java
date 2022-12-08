@@ -128,7 +128,7 @@ public class PhotoServiceImpl implements PhotoService {
 //    @Cacheable(cacheNames = {"Ablums"},key = "#root.methodName")
     @Override
     public ResultVo<List<AblumVo>> findAblums() {
-
+//        localCache.remove(CommonConstants.LOCAL_CACHE_ABLUMS_KEY);
         if (!localCache.isEmpty()){
 
             List<AblumVo> ablumVos = localCache.get(CommonConstants.LOCAL_CACHE_ABLUMS_KEY);
