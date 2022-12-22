@@ -72,7 +72,8 @@ public class PhotoServiceImpl implements PhotoService {
 
 
     }
-
+    //删除的时候使的缓存失效
+    @CacheEvict(value = {"my_album"},allEntries = true)
     @Transactional
     @Override
     public void delPhotoById(Integer photoId) {
@@ -92,15 +93,16 @@ public class PhotoServiceImpl implements PhotoService {
         return photoRepository.getOne(id);
     }
 
-//    @CacheEvict(cacheNames = {"Ablums"},key = "'findAblums'")
+    //新增相册的时候使缓存失效
+    @CacheEvict(value = {"my_album"},allEntries = true)
     @Transactional
     @Override
     public void addPhoto(PhotoVo[] photoVos) {
 
         //添加数据时候先使缓存失效
-        if (!localCache.isEmpty()){
+       /* if (!localCache.isEmpty()){
             localCache.remove(CommonConstants.LOCAL_CACHE_ABLUMS_KEY);
-        }
+        }*/
 
         Arrays.stream(photoVos).forEach(photoVo -> {
 
@@ -124,19 +126,17 @@ public class PhotoServiceImpl implements PhotoService {
 
     }
 
-//    本地缓存
-//    @Cacheable(cacheNames = {"Ablums"},key = "#root.methodName")
+//    博客 用户端========================================================
+    @Cacheable(value = {"my_album"},key = "#root.methodName")
     @Override
     public ResultVo<List<AblumVo>> findAblums() {
-//        localCache.remove(CommonConstants.LOCAL_CACHE_ABLUMS_KEY);
-        if (!localCache.isEmpty()){
+
+       /* if (!localCache.isEmpty()){
 
             List<AblumVo> ablumVos = localCache.get(CommonConstants.LOCAL_CACHE_ABLUMS_KEY);
 
             return new ResultVo<List<AblumVo>>(ablumVos);
-        }
-
-        //photoRepository.
+        }*/
 
         //找到所有城市名称
         List<String> cityNames = photoRepository.findAllCityName();
@@ -156,10 +156,11 @@ public class PhotoServiceImpl implements PhotoService {
             ablumVos.add(ablumVo);
         }
 
-        localCache.put("cache",ablumVos);
 
         ResultVo<List<AblumVo>> resultVo = new ResultVo<>(ablumVos);
 
         return resultVo;
     }
+
+
 }

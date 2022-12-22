@@ -1,6 +1,10 @@
 package com.my.blog.po;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,9 +16,18 @@ public class Comment implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
+
+    @NotEmpty(message = "用户昵称不能为空")
     private String nickname;
+
+    @NotEmpty(message = "邮箱不能为空")
+    @Pattern(regexp = "^([a-zA-Z]|[0-9])(\\w|\\-)+@[a-zA-Z0-9]+\\.([a-zA-Z]{2,4})$",message = "邮箱格式错误")
     private String email;
+
+    @NotEmpty(message = "评论内容不能为空")
+    @Length(max = 200,message = "评论内容在200字以内")
     private String content;
+
     private String avatar;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -23,7 +36,7 @@ public class Comment implements Serializable {
 
     private boolean adminComment;
 //    private Long parentCommentId; 这个我们使用了下面的的Comment自关联后，自动生成parentCommentId列
-    //多个对话只能在某个博客下
+    //多个回复对应一个博客
     @ManyToOne
     private Blog blog;
     //自关联关系

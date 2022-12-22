@@ -95,8 +95,12 @@
 
                 </td>
                 <!--图片描述-->
-                <td>
+                <td th:if="${photo.title!=null}">
                     <span th:text="${photo.title}"></span>
+                </td>
+
+                <td th:if="${photo.title==null}">
+                    <span>_</span>
                 </td>
                 <td>
                     <!--restful风格-->
@@ -104,7 +108,8 @@
                     <a href="#"  class="ui basic mini teal button">编辑</a>
 
                     <!--th:href="" @{/admin/album/{id}/delete(id=${tag.id})}-->
-                    <a href="#"  class="ui basic mini red button">删除</a>
+                    <!--delPhoto/{photoId}-->
+                    <a th:href="@{delPhoto/{photoId}/(photoId=${photo.id})}"  class="ui basic mini red button">删除</a>
                 </td>
             </tr>
 

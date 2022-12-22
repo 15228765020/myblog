@@ -135,6 +135,10 @@
             async:false,
            success:function (res) {
 
+               let d1 =new Date();
+
+              let t1 =  d1.getMilliseconds();
+
                let arrL1 = res.data;
 
                ////console.log("arrL1~~~",arrL1);
@@ -174,28 +178,12 @@
                //渲染完成，隐藏加载gif
                $("#pp_loading1").hide();
 
-              /* for (let i = 0; i <arrL1.length; i++) {
-
-                  let l2Len =  $("#tools_"+i).attr("data-l2nums");
-
-                  //console.log("l2Len",l2Len);
-
-                   for (let j = 0; j < l2Len; j++) {
-                       //获取图片元素
-                       let imgDom = $("#img_"+i+j);
-
-                       //console.log("imgDom~~~",imgDom);
-                       // DrawImage(imgDom);
-                       imgDom.style.width="105px";
-                       imgDom.style.height="140px";
-                   }
-               }*/
+               let t2=  new Date().getMilliseconds();
 
 
-               //直接修改展示图片的宽高
+               console.log("渲染到浏览器使用了【"+(t2-t1)/1000.0+"】s")
+               console.log("渲染到浏览器使用了【"+(t2-t1)+"】ms")
 
-               /*$("#pp_thumbContainer .content img").style.height="140px";
-               $("#pp_thumbContainer .content img").style.width="105px"*/
 ;           }
         });
 

@@ -26,4 +26,6 @@ public interface PhotoService {
 
     ResultVo<List<AblumVo>> findAblums();
 
+//    ResultVo delById();
+
 }

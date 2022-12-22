@@ -449,6 +449,7 @@
                     </div>
                 </div>
             </div>
+            <!--留言-->
             <div class="ui bottom attached segment">
                 <!-- 留言区域列表 -->
                     <div id="comment-container" class="ui teal segment">
@@ -504,28 +505,28 @@
                         </div>
                     </div>
                     <!--回复输入区-->
-
-                    <div id="comment-form" class="ui reply form">
+                    <div id="comment-form" class="ui reply form" th:fragment="replyArea">
                         <!--测试当前页面的id-->
-                        <input id="bID" type="hidden" name="blog.id" th:value="${blog.id!=null}?${blog.id}">
-
+                        <span th:if="${blog!=null}">
+                        <input id="bID" type="hidden" name="blog.id" th:value="${blog.id}!=null?${blog.id}:''">
+                        </span>
                         <input type="hidden" name="parentComment.id" value="-1">
-                        <div class="field">
-                            <textarea name="content" placeholder="请输入评论信息..."></textarea>
+                        <div class="visitor_content field">
+                            <textarea id="visitor_content" name="content" maxlength="200" placeholder="请输入评论信息(最多200字)..."></textarea>
                         </div>
 
                         <div class="fields">
                             <div class="field m-mobile-wide m-margin-bottom-small">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
-                                    <input type="text" name="nickname" placeholder="姓名">
+                                    <input type="text" name="nickname" placeholder="姓名" maxlength="20">
                                 </div>
                             </div>
                             <div class="field m-mobile-wide m-margin-bottom-small">
                                 <div class="ui left icon input">
                                     <i class="mail icon"></i>
-                                    <input id="email" type="text" name="email" placeholder="邮箱" th:value="${session.user}!=null ? ${session.user.email}">
-                                    <div id="error_msg"></div>
+                                    <input id="email" type="text" maxlength="30" name="email" placeholder="邮箱" th:value="${session.user}!=null ? ${session.user.email}">
+                                    <div id="error_msg" th:text="${emailError!=null}?${emailError}"></div>
                                 </div>
                             </div>
                             <div class="field m-mobile-wide m-margin-bottom-small">
@@ -573,6 +574,28 @@
     </th:block>
     <!--th:inline="javascript"  : 使得表达式生效 -->
     <script type="text/javascript" th:inline="javascript">
+
+        // <!--内容文字上限提示-->
+       /* $(function(){
+            $('.visitor_content field').on('keyup',function(){
+
+
+                var txtval = $('#visitor_content').val().length;
+                console.log(txtval);
+                var str = parseInt(200-txtval);
+                // console.log(str);
+                if(str > 0 ){
+                    // $('#visitor_content').attr("placeholder",'剩余可输入'+str+'字');
+                    $('#num_txt1').html('剩余可输入'+str+'字');
+                }else{
+                    $('#num_txt1').html('剩余可输入0字');
+                    // $('#visitor_content').attr("placeholder",'剩余可输入0字');
+
+                    $('#visitor_content').val($('#visitor_content').val().substring(0,200)); //这里意思是当里面的文字小于等于0的时候，那么字数不能再增加，只能是600个字
+                }
+                //console.log($('#num_txt').html(str));
+            });
+        });*/
         $('.menu.toggle').click(function () {
             $('.m-item').toggleClass('m-mobile-hide');
         });
@@ -685,7 +708,23 @@
 
 
         let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/ ;
-        let email = $("#email").val();
+
+        $("#email").keyup(function () {
+
+            let email = $(".mail.icon").next().val();
+
+            // console.log("email~~",email);
+
+            if (!reg.test(email)){
+                $("#error_msg").html("<span style='color: red'>请输入正确的邮箱格式!!</span>");
+
+            }else {
+                $("#error_msg").html("<span style='color: green'>邮箱格式正确~~</span>");
+
+            }
+
+        });
+
 
         //ajax发送评论内容
         $("#send_btn").click(function ()
@@ -694,9 +733,10 @@
             let boo = $(".ui.reply.form").form("validate form");
 
             //点击提交邮箱校验 -用户体验不行
-            if (!reg.test(email)){
-                $("#error_msg").html("<span style='color: red'>请输入正确的邮箱格式!!</span>")
-            }
+            /*if (!reg.test(email)){
+                $("#error_msg").html("<span style='color: red'>请输入正确的邮箱格式!!</span>");
+                return;
+            }*/
 
             if (boo)
             {

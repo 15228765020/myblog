@@ -287,6 +287,8 @@
 
                 let cityName =  $("#cityName_"+i).val();
                 //必须添加地点
+
+                console.log("cityname==",cityName);
                 if (cityName==null ) {
                     $(".error.message").attr("style","display:block");
                     $(".error.message").text("必须添加一个地点(不知道填未知)");

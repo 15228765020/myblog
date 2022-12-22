@@ -2,6 +2,8 @@ package com.my.blog.service;
 
 import com.my.blog.dao.CommentRepository;
 import com.my.blog.po.Comment;
+import com.vdurmont.emoji.EmojiManager;
+import com.vdurmont.emoji.EmojiParser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -20,6 +22,7 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> listCommentByBlogId(Long blogId) {
         Sort sort = Sort.by(Sort.Direction.DESC,"createTime");
         List<Comment> comments = commentRepository.findByBlogIdAndParentCommentNull(blogId, sort);
+        comments.forEach(comment -> comment.setContent(EmojiParser.parseToUnicode(comment.getContent())));
         return eachComment(comments);
     }
     /*
@@ -93,11 +96,19 @@ public class CommentServiceImpl implements CommentService {
         if (parentId!=-1){
             comment.setParentComment(commentRepository.getOne(parentId));
         }
-        else
-        {
+        else{
             comment.setParentComment(null);
         }
         comment.setCreateTime(new Date());
+        //检查评论有没有emoji元素，有的话先做一个转换再存数据库
+
+        String content = comment.getContent();
+
+        if (EmojiManager.containsEmoji(content)){
+            content = EmojiParser.parseToHtmlDecimal(content);
+            comment.setContent(content);
+        }
+
         return commentRepository.save(comment);
     }
 }

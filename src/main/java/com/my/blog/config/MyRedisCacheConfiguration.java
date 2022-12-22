@@ -19,7 +19,7 @@ public class MyRedisCacheConfiguration {
     @Autowired
     CacheProperties cacheProperties;
 
-    @Bean
+   /* @Bean
     public RedisCacheConfiguration redisCacheConfiguration(){
 
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
@@ -47,5 +47,5 @@ public class MyRedisCacheConfiguration {
             config = config.disableKeyPrefix();
         }
         return config;
-    }
+    }*/
 }

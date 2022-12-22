@@ -14,13 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
@@ -66,22 +67,48 @@ public class CommentController {
         return comments;*/
  //    }
     @PostMapping("/comments")
-    public  String post(Comment comment, HttpSession session, HttpServletRequest request){
-        System.out.println("请求的url："+request.getRequestURL());
-        System.out.println("ajax提交数据成功!!~~~");
-        System.out.println("评论对应的博客ID:"+comment.getBlog().getId());
+    public  String post( @Valid Comment comment, BindingResult bindingResult, ModelMap map, HttpSession session, HttpServletRequest request){
+
+
+
+        //首先校验传过来的评论相关的信息
+        if (bindingResult.hasErrors()){
+
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+
+            for (FieldError fieldError : fieldErrors) {
+
+                //昵称
+                if ("nickname".equals(fieldError.getField())){
+                    map.put("nicknameError",fieldError.getDefaultMessage());
+                }else if ("email".equals(fieldError.getField())){
+                    //邮箱
+                    map.put("emailError",fieldError.getDefaultMessage());
+
+                }else if ("content".equals(fieldError.getField())){
+                    //内容
+                    map.put("contentError",fieldError.getDefaultMessage());
+
+                }
+
+            }
+
+            //返回博客详情页
+            return "blog::replyArea";
+
+        }
+
+
         Long blogId = comment.getBlog().getId();
         comment.setBlog(blogService.findBlog(blogId));
 
         User user = (User) session.getAttribute("user");
         //如果是博主留言
-        if (user !=null)
-        {
+        if (comment.isAdminComment()){
             comment.setAvatar(user.getAvatar());
             comment.setAdminComment(true);
            // comment.setNickname();
-        }else
-        {
+        }else{
             comment.setAvatar(avatar);
         }
         //根据设定保存评论
@@ -97,10 +124,6 @@ public class CommentController {
 
             params.put("summary","手心日记有人留言啦!!");
             params.put("contentType",1);
-//            Integer[] topicIds = new Integer[]{};
-
-            //发送目标的topicId，是一个数组！！！，也就是群发，使用uids单发的时候， 可以不传
-//            params.put("topicIds",topicIds);
 
             List<String> list = new ArrayList<>();
             list.add(uid);

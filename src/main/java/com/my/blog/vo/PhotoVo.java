@@ -6,8 +6,9 @@ public class PhotoVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    //图片base64数组
 
+    private Integer id;
+    //图片base64数组
     private String title;
 
     private String imgBase64;
@@ -15,6 +16,15 @@ public class PhotoVo implements Serializable {
     private String cityName;//照片所在城市
 
     private Integer cityId;//城市id
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getImgBase64() {
         return imgBase64;

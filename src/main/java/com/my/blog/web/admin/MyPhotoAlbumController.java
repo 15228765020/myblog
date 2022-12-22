@@ -8,6 +8,7 @@ import com.my.blog.vo.PhotoVo;
 import com.my.blog.vo.ResultVo;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -26,6 +27,7 @@ public class MyPhotoAlbumController {
     private PhotoService photoService;
 
     //增
+
     @RequestMapping(value = "albumAdd",method = RequestMethod.POST )
     @ResponseBody
 //    Photo photo, MultipartFile files
@@ -42,10 +44,11 @@ public class MyPhotoAlbumController {
     //删
 
     @RequestMapping("delPhoto/{photoId}")
-    public void delPhoto( @PathVariable("photoId") Integer photoId){
+    public String delPhoto( @PathVariable("photoId") Integer photoId){
         photoService.delPhotoById(photoId);
-
-//        return "";
+        //TODO 测试修改4
+        return "redirect:http://localhost:8081/admin/album/photoAlbumIndex";
+//        return "redirect:http://www.blog4cl.top/admin/album/photoAlbumIndex";
     }
 
     //改
